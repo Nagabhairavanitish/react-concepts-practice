@@ -12,7 +12,8 @@ class App extends Component {
       {name :"naruto", age:24},
       {name :"sasuke", age: 25}
     ],
-    otherState: "not used"
+    otherState: "not used",
+    showPersons: false
   }
   /*switch name handler is how we modify a name when we press the switch.
   It is a one way binding where we just change the name by pressing switch. */ 
@@ -29,6 +30,12 @@ class App extends Component {
     )
   }
 
+  togglePersonHandler =() => {
+    const doesShow =this.state.showPersons;
+    this.setState({showPersons : !doesShow})
+
+  }
+
   nameChangedHandler = (event) => {
     //console.log("was clicked !")
     this.setState( {
@@ -42,16 +49,20 @@ class App extends Component {
   }
 
   render() {
+
     /*sample example of how we perform the inline styling. 
     Inline styling is basically adding css in the javascript file instead of creating a new app.css file*/
+
     const style = {
       backgroundColor: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
     }
+
     /*In here we use person component that is imported from the persons folder.
     switchHandler is how we use a oneway binding. nameChangeHandler is a classic example of two way binding*/
+
     return (
       <div className="App">
          <h1> hi my name is nitish</h1> 
@@ -71,6 +82,25 @@ class App extends Component {
             age ={this.state.persons[2].age}
             changed ={this.nameChangedHandler} 
           />
+          <button
+              onClick= {this.togglePersonHandler}
+              style={style}>toggle persons</button>
+          { this.state.showPersons === true ? 
+              <div>
+                <Person  
+                  name = {this.state.persons[0].name}
+                  age ={this.state.persons[0].age} 
+                />
+              <Person 
+                  name= {this.state.persons[1].name} 
+                  age ={this.state.persons[1].age} />
+              <Person  
+                  name = {this.state.persons[2].name} 
+                  age ={this.state.persons[2].age}
+                /> 
+            </div> : null
+        }
+
       </div>
     );
   }
