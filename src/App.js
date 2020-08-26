@@ -60,8 +60,31 @@ class App extends Component {
       padding: '8px',
     }
 
-    /*In here we use person component that is imported from the persons folder.
-    switchHandler is how we use a oneway binding. nameChangeHandler is a classic example of two way binding*/
+    /*method-2 of toggling.method-1 at bottom.*/
+
+    let persons =null;
+
+    if(this.state.showPersons === true){
+
+      persons= ( 
+                <div>
+                  <Person  
+                    name = {this.state.persons[0].name}
+                    age ={this.state.persons[0].age} 
+                  />
+                <Person 
+                    name= {this.state.persons[1].name} 
+                    age ={this.state.persons[1].age} />
+                <Person  
+                    name = {this.state.persons[2].name} 
+                    age ={this.state.persons[2].age}
+                  /> 
+              </div>
+              );  
+    }
+
+      /* SwitchnameHandler is used to modify the name when necessary. 
+      But it is a one way binding example where the name is modified through hard coding*/
 
     return (
       <div className="App">
@@ -85,7 +108,16 @@ class App extends Component {
           <button
               onClick= {this.togglePersonHandler}
               style={style}>toggle persons</button>
-          { this.state.showPersons === true ? 
+          {persons}
+      </div>
+    );
+  }
+}
+
+export default App;
+
+/*Method - 1 of toggling: paste this in the return statement  but this method makes it more complicated.
+{ this.state.showPersons === true ? 
               <div>
                 <Person  
                   name = {this.state.persons[0].name}
@@ -100,10 +132,4 @@ class App extends Component {
                 /> 
             </div> : null
         }
-
-      </div>
-    );
-  }
-}
-
-export default App;
+        */
