@@ -61,7 +61,6 @@ class App extends Component {
     }
 
     /*method-2 of toggling.method-1 at bottom.*/
-
     let persons =null;
 
     if(this.state.showPersons === true){
@@ -83,8 +82,26 @@ class App extends Component {
               );  
     }
 
-      /* SwitchnameHandler is used to modify the name when necessary. 
-      But it is a one way binding example where the name is modified through hard coding*/
+    /*deleting the persons on click by using the delete person handler
+    In here we are outputting the list through the use of map function.*/
+    
+    let people =null;
+
+    if (this.state.showPersons === true){
+
+     people =( 
+     <div>
+            {this.state.persons.map(person => {
+              return <Person 
+                name={person.name} 
+                age ={person.age}/>
+            })}
+     </div>
+     );
+    }
+
+    /* SwitchnameHandler is used to modify the name when necessary. 
+    But it is a one way binding example where the name is modified through hard coding*/
 
     return (
       <div className="App">
@@ -109,6 +126,10 @@ class App extends Component {
               onClick= {this.togglePersonHandler}
               style={style}>toggle persons</button>
           {persons}
+          <button
+              onClick= {this.togglePersonHandler}
+              style={style}>toggle persons</button>
+          {people}
       </div>
     );
   }
