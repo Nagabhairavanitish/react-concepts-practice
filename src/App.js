@@ -8,9 +8,9 @@ class App extends Component {
 
   state ={
     persons:[
-      {name: "madara",age :40 },
-      {name :"naruto", age:24},
-      {name :"sasuke", age: 25}
+      {id:"m4", name: "madara",age :40 },
+      {id:"n2", name :"naruto", age:24},
+      {id :"s2",name :"sasuke", age: 25}
     ],
     otherState: "not used",
     showPersons: false
@@ -29,16 +29,23 @@ class App extends Component {
 
   }
 
-  nameChangedHandler = (event) => {
+  nameChangedHandler = (event, id) => {
     //console.log("was clicked !")
-    this.setState( {
-        persons: [ 
-          {name: "madara",age :40 },
-          {name: "naruto", age:24},
-          {name: event.target.value, age:25}
-        ]
-      }
-    )
+    const personIndex =this.state.persons.findIndex(p => {
+      return p.id =id;
+    });
+
+    const person ={
+      ...this.state.persons[personIndex]
+    };
+
+    person.name =event.target.value;
+
+    const persons =[...this.state.persons];
+    persons[personIndex] =person;
+
+
+    this.setState( { persons: persons})
   }
 
   render() {
@@ -67,7 +74,9 @@ class App extends Component {
               return <Person 
                 click={() =>this.deletePersonHandler(index)}
                   name={person.name} 
-                  age ={person.age}/>
+                  age ={person.age}
+                  key ={person.id}
+                  changed ={(event) => this.nameChangedHandler(event, person.id)}/>
                 })}
         </div>
      );
