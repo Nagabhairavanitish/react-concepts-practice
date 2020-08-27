@@ -54,7 +54,8 @@ class App extends Component {
     Inline styling is basically adding css in the javascript file instead of creating a new app.css file*/
 
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color:'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -80,6 +81,8 @@ class App extends Component {
                 })}
         </div>
      );
+
+     style.backgroundColor ="red";
     }
 
     /* SwitchnameHandler is used to modify the name when necessary. 
