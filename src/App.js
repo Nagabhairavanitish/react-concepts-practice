@@ -15,19 +15,12 @@ class App extends Component {
     otherState: "not used",
     showPersons: false
   }
-  /*switch name handler is how we modify a name when we press the switch.
-  It is a one way binding where we just change the name by pressing switch. */ 
 
-  switchNameHandler = (newName) => {
-    //console.log("was clicked !")
-    this.setState( {
-        persons: [ 
-          {name: "uchiha",age :40 },
-          {name: newName, age:24},
-          {name: "sasuke", age:25}
-        ]
-      }
-    )
+
+  deletePersonHandler =(personIndex)=> {
+    const persons = this.state.persons;
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons})
   }
 
   togglePersonHandler =() => {
@@ -60,43 +53,23 @@ class App extends Component {
       padding: '8px',
     }
 
-    /*method-2 of toggling.method-1 at bottom.*/
-    let persons =null;
-
-    if(this.state.showPersons === true){
-
-      persons= ( 
-                <div>
-                  <Person  
-                    name = {this.state.persons[0].name}
-                    age ={this.state.persons[0].age} 
-                  />
-                <Person 
-                    name= {this.state.persons[1].name} 
-                    age ={this.state.persons[1].age} />
-                <Person  
-                    name = {this.state.persons[2].name} 
-                    age ={this.state.persons[2].age}
-                  /> 
-              </div>
-              );  
-    }
 
     /*deleting the persons on click by using the delete person handler
     In here we are outputting the list through the use of map function.*/
     
-    let people =null;
+    let persons =null;
 
-    if (this.state.showPersons === true){
+    if (this.state.showPersons){
 
-     people =( 
-     <div>
-            {this.state.persons.map(person => {
+     persons =( 
+        <div>
+            {this.state.persons.map((person, index) => {
               return <Person 
-                name={person.name} 
-                age ={person.age}/>
-            })}
-     </div>
+                click={() =>this.deletePersonHandler(index)}
+                  name={person.name} 
+                  age ={person.age}/>
+                })}
+        </div>
      );
     }
 
@@ -106,51 +79,14 @@ class App extends Component {
     return (
       <div className="App">
          <h1> hi my name is nitish</h1> 
-         <p>working on React</p>
-         <button 
-            onClick= {this.switchNameHandler.bind(this, 'itachi')}
-            style={style}>Switch Name</button>            
-         <Person  
-            name = {this.state.persons[0].name}
-            age ={this.state.persons[0].age} 
-          />
-         <Person 
-            name= {this.state.persons[1].name} 
-            age ={this.state.persons[1].age} />
-         <Person  
-            name = {this.state.persons[2].name} 
-            age ={this.state.persons[2].age}
-            changed ={this.nameChangedHandler} 
-          />
+         <p>working on React</p>            
           <button
               onClick= {this.togglePersonHandler}
               style={style}>toggle persons</button>
           {persons}
-          <button
-              onClick= {this.togglePersonHandler}
-              style={style}>toggle persons</button>
-          {people}
       </div>
     );
   }
 }
 
 export default App;
-
-/*Method - 1 of toggling: paste this in the return statement  but this method makes it more complicated.
-{ this.state.showPersons === true ? 
-              <div>
-                <Person  
-                  name = {this.state.persons[0].name}
-                  age ={this.state.persons[0].age} 
-                />
-              <Person 
-                  name= {this.state.persons[1].name} 
-                  age ={this.state.persons[1].age} />
-              <Person  
-                  name = {this.state.persons[2].name} 
-                  age ={this.state.persons[2].age}
-                /> 
-            </div> : null
-        }
-        */
